@@ -9,10 +9,10 @@ public class InMemoryBikeRepository : IRepository<Bike>
 
     public InMemoryBikeRepository()
     {
-        _bikes = new List<Bike>()
-        {
-            new Bike("VIN", "manufacturer", "model", BikeType.CityBike, 10,BikeFrameSize.S,BikeState.New,false )
-        };
+        // _bikes = new List<Bike>()
+        // {
+        //     new Bike("VIN", "manufacturer", "model", BikeType.CityBike, 10,BikeFrameSize.S,BikeState.New,false )
+        // };
     }
 
     public void Add(Bike bike)

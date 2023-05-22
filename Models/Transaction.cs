@@ -1,3 +1,3 @@
 namespace BikeServiceAPI.Models;
 
-public record Transaction(int Id, int TotalPrice, StandardUser User, List<Part> PurchasedItems);
+public record Transaction(int Id, int TotalPrice, User User, List<Part> PurchasedItems);
