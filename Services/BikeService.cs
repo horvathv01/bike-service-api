@@ -19,6 +19,8 @@ public class BikeService : IBikeService
 
     public async Task AddBike(Bike bike)
     {
+        long id = await _context.Bikes.CountAsync() + 1;
+        bike.Id = id;
         _context.Bikes.Add(bike);
         await _context.SaveChangesAsync();
     }

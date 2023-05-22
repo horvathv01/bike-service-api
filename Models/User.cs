@@ -11,7 +11,10 @@ public class User : Person
 	public List<Transaction> TransactionHistory { get; set; } = null!;
 	public List<Bike> InsuredBikes { get; set; } = new List<Bike>();
 
-    // public User(long id, string name, string email, string password, string phone, string? introduction = null) : base(id, name, email, password, phone, introduction)
-    // {
-    // }
+    public User(string name, string email, string password, string phone, string? introduction = null) : base(name, email, password, phone, introduction)
+    {
+	    Tours = new List<Tour>();
+	    TransactionHistory = new List<Transaction>();
+	    
+    }
 }

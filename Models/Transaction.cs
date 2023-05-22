@@ -1,3 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace BikeServiceAPI.Models;
 
-public record Transaction(int Id, int TotalPrice, User User, List<Part> PurchasedItems);
+public class Transaction
+{
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public long Id { get; set; }
+    public double? TotalPrice { get; set; } = null!;
+    public List<Part> PurchasedItems { get; set; } = null!;
+}
