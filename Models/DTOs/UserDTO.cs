@@ -11,7 +11,7 @@ public class UserDTO
     public string? Introduction { get; set; }
     
     public bool? Premium { get; set; } = null!;
-    public List<string> Bikes { get; set; } = new List<string>();
+    public List<BikeDTO> Bikes { get; set; } = new List<BikeDTO>();
     public List<string>? Tours { get; set; } = null;
     //public List<ServiceEvent> ServiceEvents { get; set; } = null!;
     public List<string> TransactionHistory { get; set; } = null!;
@@ -25,8 +25,7 @@ public class UserDTO
         Phone = user.Password;
         Introduction = user.Introduction;
         user.Premium = Premium;
-        Bikes = user.Bikes.Select(bike => $"VIN: {bike.VIN}, Insured: {bike.Insured}, Manufacturer: {bike.Manufacturer}," +
-                                          $" Model: {bike.Model}, Type: {bike.Type.ToString()}, Wheel size: {bike.WheelSize}.").ToList();
+        Bikes = user.Bikes.Select(bike => new BikeDTO(bike)).ToList();
         Tours = user.Tours.Select(tour => $"{tour.Name}, {tour.Type}, {tour.Difficulty}, {tour.Start} - {tour.End}").ToList();
         TransactionHistory = user.TransactionHistory.SelectMany(ev => ev.PurchasedItems.Select(item => $"Model: {item.Model}, Price: {item.Price}.")).ToList();
         InsuredBikes = user.InsuredBikes.Select(bike => $"VIN: {bike.VIN}, Insured: {bike.Insured}, Manufacturer: {bike.Manufacturer}," +
