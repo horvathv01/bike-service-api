@@ -5,7 +5,7 @@ public class PremiumUser : StandardUser
     //can access QuickService 
     public List<Bike> InsuredBikes { get; private set; } = new List<Bike>();
     
-    public PremiumUser(int id, string name, string email, string password, string phone, string? introduction = null) : base(id, name, email, password, phone, introduction)
+    public PremiumUser(long id, string name, string email, string password, string phone, string? introduction = null) : base(id, name, email, password, phone, introduction)
     {
     }
 

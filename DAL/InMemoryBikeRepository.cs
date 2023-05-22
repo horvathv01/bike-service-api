@@ -20,7 +20,7 @@ public class InMemoryBikeRepository : IRepository<Bike>
         _bikes.Add(bike);
     }
 
-    public Bike GetById(int id)
+    public Bike GetById(long id)
     {
         return _bikes.FirstOrDefault(bike => bike.Id == id)!;
     }
@@ -40,7 +40,7 @@ public class InMemoryBikeRepository : IRepository<Bike>
         bikeToUpdate.ServiceHistory = bike.ServiceHistory;
     }
 
-    public void Delete(int id)
+    public void Delete(long id)
     {
         _bikes.Remove(_bikes.FirstOrDefault(bike => bike.Id == id)!);
     }

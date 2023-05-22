@@ -4,7 +4,7 @@ namespace BikeServiceAPI.Models;
 
 public class Bike
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public string VIN { get; set; }
     public string Manufacturer { get; set; }
     public string Model { get; set; }

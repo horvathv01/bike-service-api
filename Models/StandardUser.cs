@@ -8,7 +8,7 @@ public class StandardUser : Person
 	public List<Bike> Bikes { get; private set; } = new List<Bike>();
 	public List<Transaction> TransactionHistory { get; private set; } = new List<Transaction>();
 
-    public StandardUser(int id, string name, string email, string password, string phone, string? introduction = null) : base(id, name, email, password, phone, introduction)
+    public StandardUser(long id, string name, string email, string password, string phone, string? introduction = null) : base(id, name, email, password, phone, introduction)
     {
     }
 
