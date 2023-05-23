@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeServiceAPI.Models;
 
@@ -13,6 +14,8 @@ public class Part
     public double? Price { get; set; } = null!;
 
     public string Description { get; set; } = null!;
+    
+    public Transaction Transaction { get; set; }
 
     //public List<Bike> Compatibility { get; set; } = null!;
 }

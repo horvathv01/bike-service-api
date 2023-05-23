@@ -11,5 +11,5 @@ public class Tour
     public TourDifficulty? Difficulty { get; set; } = null!;
     public DateTime? Start { get; set; } = null!;
     public DateTime? End { get; set; } = null!;
-    private List<User> Participants { get; set; } = null!;
+    public List<User> Participants { get; set; } = null!;
 }

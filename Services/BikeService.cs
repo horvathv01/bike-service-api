@@ -31,7 +31,7 @@ public class BikeService : IBikeService
             .Include(bike => bike.Owner)
             .Include(bike => bike.ServiceHistory)
             .FirstOrDefaultAsync(bike => bike.Id == id);
-            
+
         if (bike == null)
         {
             Console.WriteLine("Bike not found!");
