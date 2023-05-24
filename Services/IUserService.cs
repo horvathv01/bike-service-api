@@ -1,13 +1,14 @@
 using BikeServiceAPI.Models;
+using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Models.Entities;
 
 namespace BikeServiceAPI.Services;
 
 public interface IUserService
 {
-    Task<List<User>> GetAllUsers();
-    Task<User> GetUserById(long id);
-    Task AddNewUser(User user);
-    Task UpdateUser(User user, long id);
-    Task DeleteUser(long id);
+    Task<List<UserDto>> GetAllUsers();
+    Task<UserDto> GetUserById(long id);
+    Task<int> AddUser(UserDto userDto);
+    Task<int> UpdateUser(UserDto userDto);
+    Task<int> DeleteUser(long id);
 }
