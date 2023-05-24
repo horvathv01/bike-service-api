@@ -16,17 +16,17 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<UserDTO>> GetAllUsers()
+    public async Task<List<UserDto>> GetAllUsers()
     {
         var result = await _userService.GetAllUsers();
-        return result.Select(user => new UserDTO(user)).ToList();
+        return result.Select(user => new UserDto(user)).ToList();
     }
 
     [HttpGet("/{controller}/{id}")]
-    public async Task<UserDTO> GetUserById(long id)
+    public async Task<UserDto> GetUserById(long id)
     {
         var result = await _userService.GetUserById(id);
-        return new UserDTO(result);
+        return new UserDto(result);
     }
 
     [HttpPost]
