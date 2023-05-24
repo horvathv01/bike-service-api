@@ -18,10 +18,10 @@ public class BikeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<BikeDTO>> GetAllBikes()
+    public async Task<List<BikeDto>> GetAllBikes()
     {
         var result = await _bikeService.GetAllBikes();
-        return result.Select(bike => new BikeDTO(bike)).ToList();
+        return result.Select(bike => new BikeDto(bike)).ToList();
     }
     
     [HttpPost]
@@ -47,7 +47,7 @@ public class BikeController : ControllerBase
     }
     
     [HttpGet("/initialCreate")]
-    public async Task<List<BikeDTO>> InitialCreate()
+    public async Task<List<BikeDto>> InitialCreate()
     {
         User user = new User("CsirkesIstvan", "csirkes@istvan.hu", "password", "+3670/111-2222");
         Bike bike = new Bike
