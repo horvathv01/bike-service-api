@@ -6,13 +6,11 @@ public abstract class Person
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
-
-    public string Name { get; private set; } = null!;
-    public string Email { get; private set; } = null!;
-    public string Password { get; private set; } = null!;
-    public string Phone { get; private set; } = null!;
+    public string Name { get; private set; }
+    public string Email { get; private set; }
+    public string Password { get; private set; }
+    public string Phone { get; private set; }
     public string? Introduction { get; set; }
-
     protected Person(string name, string email, string password, string phone, string? introduction = null)
     {
         Name = name;
