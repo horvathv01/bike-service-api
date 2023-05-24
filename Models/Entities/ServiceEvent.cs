@@ -8,11 +8,16 @@ public class ServiceEvent
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
 
-    public ServiceEventType? Type { get; set; } = null!;
-    public DateTime? Start { get; set; } = null!;
-    public DateTime? End { get; set; } = null!;
-    public double? Price { get; set; } = null!;
+    public ServiceEventType Type { get; set; }
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
+    public double Price { get; set; }
     public Bike Bike { get; set; } = null!;
-    //public Person User { get; set; } = null!;
     public Colleague Colleague { get; set; } = null!;
+
+    public override string ToString()
+    {
+        return
+            $"Start: {Start}, end: {End},price: {Price}, service event type: {Type.ToString()}, Bike VIN {Bike.VIN}.";
+    }
 }
