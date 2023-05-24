@@ -1,19 +1,14 @@
-﻿using BikeServiceAPI.DAL;
-using BikeServiceAPI.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using BikeServiceAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BikeServiceAPI.Services;
 
 public class BikeService : IBikeService
 {
-    //private readonly IRepository<Bike> _bikRepository;
-    private BikeServiceContext _context;
+    private readonly BikeServiceContext _context;
 
     public BikeService(BikeServiceContext context)
     {
-        //_bikRepository = bikRepository;
         _context = context;
     }
 
