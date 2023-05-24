@@ -6,13 +6,12 @@ public class ServiceEventDto
 {
     public long Id { get; set; }
 
-    public string? Type { get; set; } = null!;
-    public DateTime? Start { get; set; } = null!;
-    public DateTime? End { get; set; } = null!;
-    public double? Price { get; set; } = null!;
-    public BikeDto Bike { get; set; } = null!;
-    //public Person User { get; set; } = null!;
-    public ColleagueDto Colleague { get; set; } = null!;
+    public string Type { get; set; }
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
+    public double Price { get; set; }
+    public BikeDto Bike { get; set; }
+    public ColleagueDto Colleague { get; set; }
 
     public ServiceEventDto(ServiceEvent serviceEvent)
     {
