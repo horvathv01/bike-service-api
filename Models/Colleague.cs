@@ -4,14 +4,11 @@ namespace BikeServiceAPI.Models;
 
 public class Colleague : Person
 {
-    public SkillLevel SkillLevel { get; private set; }
-    public Colleague(long id, string name, string email, string password, string phone, SkillLevel skillLevel, string? introduction = null) : base(id, name, email, password, phone, introduction)
+    public SkillLevel? SkillLevel { get; set; }
+
+    public List<ServiceEvent> ServiceEvents { get; set; } = null!;
+    public Colleague(string name, string email, string password, string phone, SkillLevel? skillLevel = null, string? introduction = null) : base(name, email, password, phone, introduction)
     {
         SkillLevel = skillLevel;
-    }
-    public SkillLevel ChangeSkillLevel(SkillLevel skillLevel)
-    {
-        SkillLevel = skillLevel;
-        return skillLevel;
     }
 }
