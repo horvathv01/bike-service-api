@@ -29,7 +29,7 @@ public class InMemoryBikeRepository : IRepository<Bike>
         var bikeToUpdate = GetById(bike.Id);
         
         bikeToUpdate.State = bike.State;
-        bikeToUpdate.Type = bike.Type;
+        bikeToUpdate.BikeType = bike.BikeType;
         bikeToUpdate.Model = bike.Model;
         bikeToUpdate.Manufacturer = bike.Manufacturer;
         bikeToUpdate.VIN = bike.VIN;
