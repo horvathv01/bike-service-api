@@ -1,8 +1,6 @@
-using BikeServiceAPI.Enums;
-
 namespace BikeServiceAPI.Models.DTOs;
 
-public class BikeDTO
+public class BikeDto
 {
     public long Id { get; set; }
 
@@ -18,7 +16,7 @@ public class BikeDTO
     public List<string> ServiceHistory { get; set; } = null!;
     public bool? Insured { get; set; } = null!;
 
-    public BikeDTO(Bike bike)
+    public BikeDto(Bike bike)
     {
         VIN = bike.VIN;
         Manufacturer = bike.Manufacturer;

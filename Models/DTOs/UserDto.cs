@@ -1,6 +1,6 @@
 namespace BikeServiceAPI.Models.DTOs;
 
-public class UserDTO
+public class UserDto
 {
     public long Id { get; set; }
 
@@ -11,13 +11,13 @@ public class UserDTO
     public string? Introduction { get; set; }
     
     public bool? Premium { get; set; } = null!;
-    public List<BikeDTO> Bikes { get; set; } = new List<BikeDTO>();
+    public List<BikeDto> Bikes { get; set; } = new List<BikeDto>();
     public List<string>? Tours { get; set; } = null;
     //public List<ServiceEvent> ServiceEvents { get; set; } = null!;
     public List<string> TransactionHistory { get; set; } = null!;
     public List<string> InsuredBikes { get; set; } = new List<string>();
 
-    public UserDTO(User user)
+    public UserDto(User user)
     {
         Name = user.Name;
         Email = user.Email;
@@ -25,7 +25,7 @@ public class UserDTO
         Phone = user.Password;
         Introduction = user.Introduction;
         user.Premium = Premium;
-        Bikes = user.Bikes.Select(bike => new BikeDTO(bike)).ToList();
+        Bikes = user.Bikes.Select(bike => new BikeDto(bike)).ToList();
         Tours = user.Tours.Select(tour => $"{tour.Name}, {tour.Type}, {tour.Difficulty}, {tour.Start} - {tour.End}").ToList();
         TransactionHistory = user.TransactionHistory.SelectMany(ev => ev.PurchasedItems.Select(item => $"Model: {item.Model}, Price: {item.Price}.")).ToList();
         InsuredBikes = user.InsuredBikes.Select(bike => $"VIN: {bike.VIN}, Insured: {bike.Insured}, Manufacturer: {bike.Manufacturer}," +

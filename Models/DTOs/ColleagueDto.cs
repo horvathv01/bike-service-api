@@ -1,6 +1,6 @@
 namespace BikeServiceAPI.Models.DTOs;
 
-public class ColleagueDTO
+public class ColleagueDto
 {
     public string Name { get; private set; } = null!;
     public string Email { get; private set; } = null!;
@@ -12,7 +12,7 @@ public class ColleagueDTO
 
     public List<string> ServiceEvents { get; set; } = null!;
 
-    public ColleagueDTO(Colleague colleague)
+    public ColleagueDto(Colleague colleague)
     {
         Name = colleague.Name;
         Email = colleague.Email;
