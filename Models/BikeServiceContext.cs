@@ -1,7 +1,6 @@
-using BikeServiceAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BikeServiceAPI.DAL;
+namespace BikeServiceAPI.Models;
 
 public class BikeServiceContext : DbContext
 {
