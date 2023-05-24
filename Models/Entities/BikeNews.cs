@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using BikeServiceAPI.Enums;
 
-namespace BikeServiceAPI.Models;
+namespace BikeServiceAPI.Models.Entities;
 
 public record BikeNews
 {

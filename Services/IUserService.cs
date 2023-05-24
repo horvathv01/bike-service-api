@@ -1,4 +1,5 @@
 using BikeServiceAPI.Models;
+using BikeServiceAPI.Models.Entities;
 
 namespace BikeServiceAPI.Services;
 

@@ -1,5 +1,4 @@
-﻿using BikeServiceAPI.Enums;
-using BikeServiceAPI.Models;
+﻿using BikeServiceAPI.Models.Entities;
 
 namespace BikeServiceAPI.DAL;
 

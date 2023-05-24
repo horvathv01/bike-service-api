@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.InteropServices.JavaScript;
 using BikeServiceAPI.Enums;
 
-namespace BikeServiceAPI.Models;
+namespace BikeServiceAPI.Models.Entities;
 
 public class ServiceEvent
 {

@@ -1,7 +1,6 @@
 using BikeServiceAPI.Enums;
-using BikeServiceAPI.Models.DTOs;
 
-namespace BikeServiceAPI.Models;
+namespace BikeServiceAPI.Models.Entities;
 
 public class Tour
 {

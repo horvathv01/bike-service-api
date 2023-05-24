@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BikeServiceAPI.Models;
+namespace BikeServiceAPI.Models.Entities;
 
 public abstract class Person
 {

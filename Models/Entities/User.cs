@@ -1,6 +1,4 @@
-using System.Transactions;
-
-namespace BikeServiceAPI.Models;
+namespace BikeServiceAPI.Models.Entities;
 
 public class User : Person
 {

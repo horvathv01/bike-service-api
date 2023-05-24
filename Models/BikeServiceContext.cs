@@ -1,3 +1,4 @@
+using BikeServiceAPI.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BikeServiceAPI.Models;

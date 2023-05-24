@@ -1,3 +1,5 @@
+using BikeServiceAPI.Models.Entities;
+
 namespace BikeServiceAPI.Models.DTOs;
 
 public class ServiceEventDto

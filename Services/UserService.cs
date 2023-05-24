@@ -1,5 +1,6 @@
 using BikeServiceAPI.DAL;
 using BikeServiceAPI.Models;
+using BikeServiceAPI.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BikeServiceAPI.Services;

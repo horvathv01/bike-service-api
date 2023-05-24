@@ -1,6 +1,6 @@
 ﻿using BikeServiceAPI.Enums;
-using BikeServiceAPI.Models;
 using BikeServiceAPI.Models.DTOs;
+using BikeServiceAPI.Models.Entities;
 using BikeServiceAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 

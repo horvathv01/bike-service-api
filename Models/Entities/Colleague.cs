@@ -1,6 +1,6 @@
 ﻿using BikeServiceAPI.Enums;
 
-namespace BikeServiceAPI.Models;
+namespace BikeServiceAPI.Models.Entities;
 
 public class Colleague : Person
 {

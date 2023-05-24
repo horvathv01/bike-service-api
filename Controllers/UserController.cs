@@ -1,8 +1,7 @@
-using BikeServiceAPI.Models;
 using BikeServiceAPI.Models.DTOs;
+using BikeServiceAPI.Models.Entities;
 using BikeServiceAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BikeServiceAPI.Controllers;
 [ApiController, Route("/{controller}")]
