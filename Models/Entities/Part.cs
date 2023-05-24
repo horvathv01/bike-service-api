@@ -10,11 +10,14 @@ public class Part
     public string Make { get; set; } = null!;
     public string Model { get; set; } = null!;
 
-    public double? Price { get; set; } = null!;
+    public double Price { get; set; }
 
     public string Description { get; set; } = null!;
-    
-    public Transaction Transaction { get; set; }
 
-    //public List<Bike> Compatibility { get; set; } = null!;
+    public Transaction Transaction { get; set; } = null!;
+
+    public override string ToString()
+    {
+        return $"Model: {Model}, Price: {Price}.";
+    }
 }
