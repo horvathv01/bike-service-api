@@ -17,6 +17,13 @@ public class BikeController : ControllerBase
         _bikeService = bikeService;
     }
 
+    [HttpGet("/{controller}/{id}")]
+    public async Task<BikeDTO> GetBikeById(long id)
+    {
+        var result = await _bikeService.GetBikeById(id);
+        return new BikeDTO(result);
+    }
+
     [HttpGet]
     public async Task<List<BikeDTO>> GetAllBikes()
     {

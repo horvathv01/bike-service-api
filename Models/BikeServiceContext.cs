@@ -34,7 +34,8 @@ public class BikeServiceContext : DbContext
 
             modelBuilder.Entity<Bike>()
                 .HasOne(bike => bike.Owner)
-                .WithMany(owner => owner.Bikes);
+                .WithMany(owner => owner.Bikes)
+                .HasForeignKey(bike => bike.OwnerId);
             //.HasForeignKey(bike => bike.Owner.Id);
             
             modelBuilder.Entity<Tour>()

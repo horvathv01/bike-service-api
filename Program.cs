@@ -27,6 +27,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/
 //builder.Services.AddSingleton<IRepository<Bike>, InMemoryBikeRepository>();
 builder.Services.AddTransient<IBikeService, BikeService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -19,8 +19,8 @@ public class BikeService : IBikeService
 
     public async Task AddBike(Bike bike)
     {
-        long id = await _context.Bikes.CountAsync() + 1;
-        bike.Id = id;
+        // long id = await _context.Bikes.CountAsync() + 1;
+        // bike.Id = id;
         _context.Bikes.Add(bike);
         await _context.SaveChangesAsync();
     }
@@ -44,11 +44,15 @@ public class BikeService : IBikeService
     public async Task UpdateBike(Bike newBike, long id)
     {
         Bike bike = await GetBikeById(id);
+        User user = await _context.Users
+            .Include(user => user.Bikes)
+            .FirstOrDefaultAsync(user => user.Id == newBike.Owner.Id);
         if (bike == null)
         {
             return;
         }
-        
+
+        newBike.Id = bike.Id;
         _context.Entry(bike).CurrentValues.SetValues(newBike);
         await _context.SaveChangesAsync();
     }

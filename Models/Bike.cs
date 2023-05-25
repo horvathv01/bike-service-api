@@ -16,6 +16,8 @@ public class Bike
     public BikeFrameSize? FrameSize { get; set; } = null!;
     public BikeState? State { get; set; } = null!;
 
+    [ForeignKey("Users")]
+    public long OwnerId { get; set; }
     public User? Owner { get; set; } = null!;
     public List<ServiceEvent> ServiceHistory { get; set; } = null!;
     public bool? Insured { get; set; } = null!;
