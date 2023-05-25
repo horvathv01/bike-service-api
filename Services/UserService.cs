@@ -1,8 +1,6 @@
-using BikeServiceAPI.DAL;
 using BikeServiceAPI.Models;
 using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Models.Entities;
-using BikeServiceAPI.Models.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 namespace BikeServiceAPI.Services;
@@ -10,12 +8,10 @@ namespace BikeServiceAPI.Services;
 public class UserService : IUserService
 {
     private readonly BikeServiceContext _context;
-    private readonly IMapper<User,UserDto> _userDtoMapper;
 
-    public UserService(BikeServiceContext context, IMapper<User, UserDto> userDtoMapper)
+    public UserService(BikeServiceContext context)
     {
         _context = context;
-        _userDtoMapper = userDtoMapper;
     }
 
     public async Task<List<UserDto>> GetAllUsers()
@@ -25,18 +21,18 @@ public class UserService : IUserService
             .Include(user => user.Tours)
             .Include(user => user.TransactionHistory)
             .ToListAsync();
-        return userList.Select(user => _userDtoMapper.ToDto(user)).ToList();
+        return userList.Select(user => new UserDto(user)).ToList();
     }
 
     public async Task<UserDto> GetUserById(long id)
     {
         var user = await GetUserEntityById(id) ?? throw new InvalidOperationException("User not exist.");
-        return _userDtoMapper.ToDto(user);
+        return new UserDto(user);
     }
 
     public async Task<int> AddUser(UserDto userDto)
     {
-        var user = _userDtoMapper.ToEntity(userDto);
+        var user = new User(userDto);
         _context.Users.Add(user);
         return await _context.SaveChangesAsync();
     }
@@ -44,7 +40,7 @@ public class UserService : IUserService
     public async Task<int> UpdateUser(UserDto userDto)
     {
         var user = await GetUserEntityById(userDto.Id) ?? throw new InvalidOperationException("User not exist.");
-        var updatedUser = _userDtoMapper.ToEntity(userDto);
+        var updatedUser = new User(userDto);
 
         _context.Entry(user).CurrentValues.SetValues(updatedUser);
         return await _context.SaveChangesAsync();
