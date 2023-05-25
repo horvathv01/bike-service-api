@@ -21,6 +21,7 @@ public class UserDto
 
     public UserDto(User user)
     {
+        Id = user.Id;
         Name = user.Name;
         Email = user.Email;
         Password = user.Password;
