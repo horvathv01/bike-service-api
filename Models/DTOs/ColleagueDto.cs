@@ -11,7 +11,12 @@ public class ColleagueDto
     public string Phone { get; set; }
     public string? Introduction { get; set; }
     public string SkillLevel { get; set; }
-    public List<string> ServiceEvents { get; set; }
+    public List<ServiceEventDto> ServiceEvents { get; set; }
+
+    public ColleagueDto()
+    {
+        
+    }
 
     public ColleagueDto(Colleague colleague)
     {
@@ -22,8 +27,6 @@ public class ColleagueDto
         Phone = colleague.Password;
         Introduction = colleague.Introduction;
         SkillLevel = colleague.SkillLevel.ToString();
-        ServiceEvents = colleague.ServiceEvents.Select(ev =>
-                $"Start: {ev.Start}, end: {ev.End}, price: {ev.Price}, service event type: {ev.Type.ToString()}, Bike id: {ev.BikeId}.")
-            .ToList();
+        ServiceEvents = colleague.ServiceEvents.Select(serviceEvent => new ServiceEventDto(serviceEvent)).ToList();
     }
 }
