@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using BikeServiceAPI.Enums;
+using BikeServiceAPI.Models.DTOs;
 
 namespace BikeServiceAPI.Models.Entities;
 
@@ -18,6 +19,24 @@ public class Bike
     public long UserId { get; set; }
     public List<ServiceEvent> ServiceHistory { get; set; } = new List<ServiceEvent>();
     public bool Insured { get; set; }
+
+    public Bike()
+    {
+        
+    }
+    public Bike(BikeDto dto)
+    {
+        Id = dto.Id;
+        VIN = dto.VIN;
+        Manufacturer = dto.Manufacturer;
+        Model = dto.Model;
+        BikeType = Enum.Parse<BikeType>(dto.BikeType);
+        WheelSize = dto.WheelSize;
+        FrameSize = Enum.Parse<BikeFrameSize>(dto.FrameSize);
+        State = Enum.Parse<BikeState>(dto.State);
+        UserId = dto.UserId;
+        Insured = dto.Insured;
+    }
 
     public override string ToString()
     {
