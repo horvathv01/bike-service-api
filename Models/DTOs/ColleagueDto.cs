@@ -4,6 +4,7 @@ namespace BikeServiceAPI.Models.DTOs;
 
 public class ColleagueDto
 {
+    public long Id { get; set; }
     public string Name { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
@@ -14,6 +15,7 @@ public class ColleagueDto
 
     public ColleagueDto(Colleague colleague)
     {
+        Id = colleague.Id;
         Name = colleague.Name;
         Email = colleague.Email;
         Password = colleague.Password;
@@ -21,7 +23,7 @@ public class ColleagueDto
         Introduction = colleague.Introduction;
         SkillLevel = colleague.SkillLevel.ToString();
         ServiceEvents = colleague.ServiceEvents.Select(ev =>
-                $"Start: {ev.Start}, end: {ev.End}, price: {ev.Price}, service event type: {ev.Type.ToString()}, Bike VIN {ev.Bike.VIN}.")
+                $"Start: {ev.Start}, end: {ev.End}, price: {ev.Price}, service event type: {ev.Type.ToString()}, Bike id: {ev.BikeId}.")
             .ToList();
     }
 }
