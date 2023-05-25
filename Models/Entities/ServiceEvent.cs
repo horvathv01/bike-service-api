@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using BikeServiceAPI.Enums;
+using BikeServiceAPI.Models.DTOs;
 
 namespace BikeServiceAPI.Models.Entities;
 
@@ -15,9 +16,19 @@ public class ServiceEvent
     public long BikeId { get; set; }
     public long ColleagueId { get; set; }
 
-    public override string ToString()
+    public ServiceEvent()
     {
-        return
-            $"Start: {Start}, end: {End},price: {Price}, service event type: {Type.ToString()}, Bike id: {BikeId}.";
+        
+    }
+
+    public ServiceEvent(ServiceEventDto dto)
+    {
+        Id = dto.Id;
+        Type = Enum.Parse<ServiceEventType>(dto.Type);
+        Start = dto.Start;
+        End = dto.End;
+        Price = dto.Price;
+        BikeId = dto.BikeId;
+        ColleagueId = dto.ColleagueId;
     }
 }

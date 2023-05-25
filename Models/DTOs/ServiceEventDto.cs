@@ -12,6 +12,11 @@ public class ServiceEventDto
     public long BikeId { get; set; }
     public long ColleagueId { get; set; }
 
+    public ServiceEventDto()
+    {
+        
+    }
+
     public ServiceEventDto(ServiceEvent serviceEvent)
     {
         Id = serviceEvent.Id;
