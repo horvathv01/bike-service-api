@@ -40,7 +40,6 @@ public class BikeController : ControllerBase
         return Ok(await _bikeService.AddBike(bikeDto));
     }
 
-
     [HttpPut]
     public async Task<IActionResult> UpdateBike([FromBody] BikeDto bikeDto)
     {

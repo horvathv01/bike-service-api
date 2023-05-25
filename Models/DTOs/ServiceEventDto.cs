@@ -5,13 +5,17 @@ namespace BikeServiceAPI.Models.DTOs;
 public class ServiceEventDto
 {
     public long Id { get; set; }
-
     public string Type { get; set; }
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public double Price { get; set; }
-    public BikeDto Bike { get; set; }
-    public ColleagueDto Colleague { get; set; }
+    public long BikeId { get; set; }
+    public long ColleagueId { get; set; }
+
+    public ServiceEventDto()
+    {
+        
+    }
 
     public ServiceEventDto(ServiceEvent serviceEvent)
     {
@@ -20,8 +24,7 @@ public class ServiceEventDto
         Start = serviceEvent.Start;
         End = serviceEvent.End;
         Price = serviceEvent.Price;
-        Bike = new BikeDto(serviceEvent.Bike);
-        Colleague = new ColleagueDto(serviceEvent.Colleague);
+        BikeId = serviceEvent.BikeId;
+        ColleagueId = serviceEvent.ColleagueId;
     }
-    
 }

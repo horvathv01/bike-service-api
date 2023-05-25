@@ -9,11 +9,11 @@ public class UserDto
     public string Email { get; set; }
     public string Password { get; set; }
     public string Phone { get; set; }
-    public string? Introduction { get; set; }
+    public string Introduction { get; set; }
     public bool Premium { get; set; }
-    public List<BikeDto>? Bikes { get; set; } = new List<BikeDto>();
-    public List<string>? Tours { get; set; } = new List<string>();
-    public List<string>? TransactionHistory { get; set; } = new List<string>();
+    public List<BikeDto> Bikes { get; set; } = new List<BikeDto>();
+    public List<TourDto> Tours { get; set; } = new List<TourDto>();
+    public List<TransactionDto> TransactionHistory { get; set; } = new List<TransactionDto>();
 
     public UserDto()
     {
@@ -21,6 +21,7 @@ public class UserDto
 
     public UserDto(User user)
     {
+        Id = user.Id;
         Name = user.Name;
         Email = user.Email;
         Password = user.Password;
@@ -29,10 +30,7 @@ public class UserDto
 
         Premium = user.Premium;
         Bikes = user.Bikes.Select(bike => new BikeDto(bike)).ToList();
-        Tours = ParseTours(user.Tours);
-        TransactionHistory = ParseTransactionHistory(user.TransactionHistory);
+        Tours = user.Tours.Select(tour => new TourDto(tour)).ToList();
+        TransactionHistory = user.TransactionHistory.Select(transaction => new TransactionDto(transaction)).ToList();
     }
-
-    public List<string> ParseTours(List<Tour> tours) => tours.Select(tour => tour.ToString()).ToList();
-    public List<string> ParseTransactionHistory(List<Transaction> transactions) => transactions.Select(transaction => transaction.ToString()).ToList();
 }

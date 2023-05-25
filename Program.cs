@@ -1,7 +1,4 @@
 using BikeServiceAPI.Models;
-using BikeServiceAPI.Models.DTOs;
-using BikeServiceAPI.Models.Entities;
-using BikeServiceAPI.Models.Mappers;
 using BikeServiceAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,15 +18,14 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<BikeServiceContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("BikeServiceConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BikeServiceConnection")));
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/
-builder.Services.AddTransient<IMapper<Bike, BikeDto>, BikeDtoMapper>();
-builder.Services.AddTransient<IMapper<User, UserDto>, UserDtoMapper>();
 builder.Services.AddTransient<IBikeService, BikeService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IServiceEventService, ServiceEventService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -1,7 +1,6 @@
 ﻿using BikeServiceAPI.Models;
 using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Models.Entities;
-using BikeServiceAPI.Models.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 namespace BikeServiceAPI.Services;
@@ -9,17 +8,15 @@ namespace BikeServiceAPI.Services;
 public class BikeService : IBikeService
 {
     private readonly BikeServiceContext _context;
-    private readonly IMapper<Bike, BikeDto> _bikeDtoMapper;
 
-    public BikeService(BikeServiceContext context, IMapper<Bike, BikeDto> bikeDtoMapper)
+    public BikeService(BikeServiceContext context)
     {
         _context = context;
-        _bikeDtoMapper = bikeDtoMapper;
     }
 
     public async Task<int> AddBike(BikeDto bikeDto)
     {
-        var bike = _bikeDtoMapper.ToEntity(bikeDto);
+        var bike = new Bike(bikeDto);
         _context.Bikes.Add(bike);
         return await _context.SaveChangesAsync();
     }
@@ -28,14 +25,14 @@ public class BikeService : IBikeService
     {
         var bike = await GetBikeEntityById(id) ?? throw new InvalidOperationException("bike with id not exist");
 
-        return _bikeDtoMapper.ToDto(bike);
+        return new BikeDto(bike);
     }
 
     public async Task<int> UpdateBike(BikeDto bikeDto)
     {
         Bike bike = await GetBikeEntityById(bikeDto.Id) ??
                     throw new InvalidOperationException("bike with id not exist");
-        var updateBike = _bikeDtoMapper.ToEntity(bikeDto);
+        var updateBike = new Bike(bikeDto);
 
         _context.Entry(bike).CurrentValues.SetValues(updateBike);
         return await _context.SaveChangesAsync();
@@ -53,7 +50,7 @@ public class BikeService : IBikeService
         var bikeList = await _context.Bikes
             .Include(bike => bike.ServiceHistory)
             .ToListAsync();
-        return bikeList.Select(bike => _bikeDtoMapper.ToDto(bike)).ToList();
+        return bikeList.Select(bike => new BikeDto(bike)).ToList();
     }
 
     private async Task<Bike?> GetBikeEntityById(long id)
