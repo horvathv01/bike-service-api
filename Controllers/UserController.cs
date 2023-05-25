@@ -1,11 +1,10 @@
-using BikeServiceAPI.Models;
 using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BikeServiceAPI.Controllers;
-[ApiController, Route("/{controller}")]
+
+[ApiController, Route("[controller]")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -16,39 +15,54 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<UserDTO>> GetAllUsers()
+    public async Task<List<UserDto>> GetAllUsers()
     {
-        var result = await _userService.GetAllUsers();
-        return result.Select(user => new UserDTO(user)).ToList();
+        return await _userService.GetAllUsers();
     }
 
-    [HttpGet("/{controller}/{id}")]
-    public async Task<UserDTO> GetUserById(long id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUserById(long id)
     {
-        var result = await _userService.GetUserById(id);
-        return new UserDTO(result);
+        try
+        {
+            return Ok(await _userService.GetUserById(id));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.StackTrace);
+        }
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddNewUser([FromBody] User user)
+    public async Task<IActionResult> AddUser([FromBody] UserDto userDto)
     {
-        await _userService.AddNewUser(user);
+        await _userService.AddUser(userDto);
         return Ok();
     }
 
-    [HttpPut("/{controller}/{id}")]
-    public async Task<IActionResult> UpdateUser([FromBody] User user, long id)
+    [HttpPut]
+    public async Task<IActionResult> UpdateUser([FromBody] UserDto userDto)
     {
-        await _userService.UpdateUser(user, id);
-        return Ok();
+        try
+        {
+            return Ok(await _userService.UpdateUser(userDto));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.StackTrace);
+        }
     }
 
-    [HttpDelete("/{controller}/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(long id)
     {
-        await _userService.DeleteUser(id);
-        return Ok();
+        try
+        {
+            return Ok(await _userService.DeleteUser(id));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.StackTrace);
+        }
     }
-
-
 }
