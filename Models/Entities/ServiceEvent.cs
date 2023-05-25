@@ -12,12 +12,12 @@ public class ServiceEvent
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public double Price { get; set; }
-    public Bike Bike { get; set; } = null!;
-    public Colleague Colleague { get; set; } = null!;
+    public long BikeId { get; set; }
+    public long ColleagueId { get; set; }
 
     public override string ToString()
     {
         return
-            $"Start: {Start}, end: {End},price: {Price}, service event type: {Type.ToString()}, Bike VIN {Bike.VIN}.";
+            $"Start: {Start}, end: {End},price: {Price}, service event type: {Type.ToString()}, Bike id: {BikeId}.";
     }
 }
