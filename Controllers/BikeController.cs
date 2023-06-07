@@ -1,11 +1,13 @@
 ﻿using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeServiceAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class BikeController : ControllerBase
 {
     private readonly IBikeService _bikeService;

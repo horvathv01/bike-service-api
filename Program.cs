@@ -1,3 +1,4 @@
+using Azure.Core.Pipeline;
 using BikeServiceAPI.Auth;
 using BikeServiceAPI.Models;
 using BikeServiceAPI.Services;

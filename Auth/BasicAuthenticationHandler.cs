@@ -52,6 +52,7 @@ namespace BikeServiceAPI.Auth
                 claims.Add(new Claim(ClaimTypes.Role, userRole.ToString()));
             }
             claims.Add(new Claim(ClaimTypes.Name, userName));
+            claims.Add(new Claim("DatabaseID", user.Id.ToString()));
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
