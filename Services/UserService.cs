@@ -30,6 +30,11 @@ public class UserService : IUserService
         return new UserDto(user);
     }
 
+    public async Task<User> GetUserByName(string userName)
+    {
+        return await _context.Users.FirstOrDefaultAsync(user => user.Name == userName);
+    }
+
     public async Task<int> AddUser(UserDto userDto)
     {
         var user = new User(userDto);
