@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace BikeServiceAPI.Controllers;
 
 [ApiController, Route("[controller]")]
-[Authorize]
 public class AccessController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -21,6 +20,7 @@ public class AccessController : ControllerBase
 
     [HttpPost("register")]
     [AuthorizeWithToken]
+    //[AllowAnonymous]
     public IActionResult RegisterUser([FromBody] UserDto user)
     {
         _userService.AddUser(user);
@@ -28,6 +28,7 @@ public class AccessController : ControllerBase
     }
 
     [HttpPost("login")]
+    [Authorize]
     public async Task<IActionResult> LoginUser()
     {
         return Ok();

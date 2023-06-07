@@ -5,6 +5,7 @@ using BikeServiceAPI.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 
 namespace BikeServiceAPI.Auth
@@ -24,6 +25,7 @@ namespace BikeServiceAPI.Auth
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             var endpoint = Context.GetEndpoint();
+
             if (endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() != null || endpoint?.Metadata?.GetMetadata<AuthorizeWithTokenAttribute>() != null)
             {
                 return AuthenticateResult.NoResult();

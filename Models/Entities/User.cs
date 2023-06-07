@@ -1,3 +1,4 @@
+using BikeServiceAPI.Enums;
 using BikeServiceAPI.Models.DTOs;
 
 namespace BikeServiceAPI.Models.Entities;
@@ -20,5 +21,6 @@ public class User : Person
         Bikes = dto.Bikes.Select(bikeDto => new Bike(bikeDto)).ToList();
         Tours = dto.Tours.Select(tourDto => new Tour(tourDto)).ToList();
         TransactionHistory = dto.TransactionHistory.Select(transactionDto => new Transaction(transactionDto)).ToList();
+        Roles = dto.Roles.Select(Enum.Parse<Role>).ToList();
     }
 }

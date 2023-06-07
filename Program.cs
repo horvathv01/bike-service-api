@@ -4,6 +4,7 @@ using BikeServiceAPI.Models;
 using BikeServiceAPI.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,8 +34,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie("Cookies", options =>
     {
         options.Cookie.Name = "BikeServiceCookie";
-        options.LoginPath = "access/login";
-        options.AccessDeniedPath = "access/denied";
+        options.LoginPath = "/access/login";
+        options.AccessDeniedPath = "/access/denied";
     });
 
 builder.Services.AddAuthentication(options =>
