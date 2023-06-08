@@ -2,7 +2,9 @@ using BikeServiceAPI.Auth;
 using BikeServiceAPI.Models;
 using BikeServiceAPI.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +23,52 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddDbContext<BikeServiceContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BikeServiceConnection")));
-    //options.UseNpgsql(builder.Configuration.GetConnectionString("BikeService@Vili")));
+string[] connectionNames = { "BikeServiceConnection", "BikeService@Vili" };
+string connectionString = null;
+
+foreach (string connectionName in connectionNames)
+{
+    string currentConnectionString = builder.Configuration.GetConnectionString(connectionName);
+
+    if (currentConnectionString != null)
+    {
+        if (connectionName == "BikeServiceConnection")
+        {
+            try
+            {
+                builder.Services.AddDbContext<BikeServiceContext>(options =>
+                    options.UseSqlServer(currentConnectionString));
+
+                connectionString = currentConnectionString;
+                break;
+            }
+            catch (SqlException)
+            {
+                Console.WriteLine($"Failed to connect to SQL Server");
+            }
+        }
+        else if (connectionName == "BikeService@Vili")
+        {
+            try
+            {
+                builder.Services.AddDbContext<BikeServiceContext>(options =>
+                    options.UseNpgsql(currentConnectionString));
+
+                connectionString = currentConnectionString;
+                break;
+            }
+            catch (NpgsqlException)
+            {
+                Console.WriteLine($"Failed to connect to PostgreSQL");
+            }
+        }
+    }
+}
+
+if (connectionString == null)
+{
+    Console.WriteLine("Failed to connect to any database.");
+}
 // Add services to the container.
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
