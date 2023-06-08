@@ -1,3 +1,5 @@
+using BikeServiceAPI.Auth;
+using BikeServiceAPI.Enums;
 using BikeServiceAPI.Models;
 using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Models.Entities;
@@ -30,9 +32,15 @@ public class UserService : IUserService
         return new UserDto(user);
     }
 
+    public async Task<User> GetUserByName(string userName)
+    {
+        return await _context.Users.FirstOrDefaultAsync(user => user.Name == userName);
+    }
+
     public async Task<int> AddUser(UserDto userDto)
     {
         var user = new User(userDto);
+        user.Password = HashPasswords.HashPassword(userDto.Password);
         _context.Users.Add(user);
         return await _context.SaveChangesAsync();
     }
@@ -41,7 +49,7 @@ public class UserService : IUserService
     {
         var user = await GetUserEntityById(userDto.Id) ?? throw new InvalidOperationException("User not exist.");
         var updatedUser = new User(userDto);
-
+        updatedUser.Password = HashPasswords.HashPassword(userDto.Password);
         _context.Entry(user).CurrentValues.SetValues(updatedUser);
         return await _context.SaveChangesAsync();
     }

@@ -15,6 +15,8 @@ public class UserDto
     public List<TourDto> Tours { get; set; } = new List<TourDto>();
     public List<TransactionDto> TransactionHistory { get; set; } = new List<TransactionDto>();
 
+    public List<string> Roles { get; set; } = new List<string>();
+
     public UserDto()
     {
     }
@@ -32,5 +34,6 @@ public class UserDto
         Bikes = user.Bikes.Select(bike => new BikeDto(bike)).ToList();
         Tours = user.Tours.Select(tour => new TourDto(tour)).ToList();
         TransactionHistory = user.TransactionHistory.Select(transaction => new TransactionDto(transaction)).ToList();
+        Roles = user.Roles.Select(role => role.ToString()).ToList();
     }
 }
