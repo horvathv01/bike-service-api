@@ -7,7 +7,7 @@ public class Colleague : Person
 {
     public SkillLevel SkillLevel { get; set; }
 
-    public List<ServiceEvent> ServiceEvents { get; set; } = null!;
+    public List<ServiceEvent>? ServiceEvents { get; set; } = new List<ServiceEvent>();
 
     public Colleague(string name, string email, string password, string phone,
         string? introduction = null) : base(name, email, password, phone, introduction)
