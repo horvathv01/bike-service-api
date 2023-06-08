@@ -1,10 +1,7 @@
-using Azure.Core.Pipeline;
 using BikeServiceAPI.Auth;
 using BikeServiceAPI.Models;
 using BikeServiceAPI.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,38 +16,25 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:3000")
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 });
 
 builder.Services.AddDbContext<BikeServiceContext>(options =>
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("BikeServiceConnection")));
-    options.UseNpgsql(builder.Configuration.GetConnectionString("BikeService@Vili")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BikeServiceConnection")));
+    //options.UseNpgsql(builder.Configuration.GetConnectionString("BikeService@Vili")));
 // Add services to the container.
-builder.Services.AddAuthentication("BasicAuthentication")
-    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie("Cookies", options =>
+    .AddCookie(options =>
     {
         options.Cookie.Name = "BikeServiceCookie";
         options.LoginPath = "/access/login";
         options.AccessDeniedPath = "/access/denied";
+        options.Cookie.SameSite = SameSiteMode.None;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     });
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = "BasicAuthentication";
-    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-});
-
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
-    options.AddPolicy("StandardUser", policy => policy.RequireRole("StandardUser"));
-    options.AddPolicy("PremiumUser", policy => policy.RequireRole("PremiumUser"));
-    options.AddPolicy("Colleague", policy => policy.RequireRole("Colleague"));
-});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/

@@ -14,7 +14,7 @@ public class ColleagueController : ControllerBase
     {
         _colleagueService = colleagueService;
     }
-    
+
     [HttpGet]
     public async Task<List<ColleagueDto>> GetAllColleague()
     {

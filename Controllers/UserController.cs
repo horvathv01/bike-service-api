@@ -1,13 +1,11 @@
 using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeServiceAPI.Controllers;
 
 [ApiController, Route("[controller]")]
-[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -18,14 +16,12 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Policy = "Admin")]
     public async Task<List<UserDto>> GetAllUsers()
     {
         return await _userService.GetAllUsers();
     }
 
     [HttpGet("{id}")]
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Policy = "Admin")]
     public async Task<IActionResult> GetUserById(long id)
     {
         try
@@ -39,7 +35,6 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Policy = "Admin")]
     public async Task<IActionResult> AddUser([FromBody] UserDto userDto)
     {
         await _userService.AddUser(userDto);
@@ -47,7 +42,6 @@ public class UserController : ControllerBase
     }
 
     [HttpPut]
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public async Task<IActionResult> UpdateUser([FromBody] UserDto userDto)
     {
         try
@@ -61,7 +55,6 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public async Task<IActionResult> DeleteUser(long id)
     {
         var databaseIdClaim = User.Claims.FirstOrDefault(c => c.Type == "DatabaseID");
@@ -70,18 +63,19 @@ public class UserController : ControllerBase
         {
             databaseId = databaseIdClaim.Value;
         }
-        
+
         if (User.IsInRole("Admin") || databaseId == id.ToString())
         {
             try
-        {
-            return Ok(await _userService.DeleteUser(id));
+            {
+                return Ok(await _userService.DeleteUser(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.StackTrace);
+            }
         }
-        catch (Exception e)
-        {
-            return BadRequest(e.StackTrace);
-        }
-        }
+
         return BadRequest("You have no authority to delete this user.");
     }
 }
