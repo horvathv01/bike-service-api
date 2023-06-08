@@ -23,6 +23,7 @@ public class AccessController : ControllerBase
     //[AllowAnonymous]
     public IActionResult RegisterUser([FromBody] UserDto user)
     {
+        user.Roles.Add(Enums.Role.StandardUser.ToString());
         _userService.AddUser(user);
         return Ok();
     }
