@@ -12,6 +12,6 @@ public enum ServiceEventType
     AestheticDamage,
     Upgrade,
     GeneralService,
-    Fitting, //personalised set
-    NoneOfTheAbove
+    Fitting,
+    CustomService
 }

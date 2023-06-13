@@ -1,5 +1,6 @@
 ﻿using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeServiceAPI.Controllers;
@@ -16,6 +17,7 @@ public class BikeController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "admin")]
     public async Task<List<BikeDto>> GetAllBikes()
     {
         return await _bikeService.GetAllBikes();

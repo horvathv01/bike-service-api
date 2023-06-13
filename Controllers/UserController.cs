@@ -57,7 +57,7 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(long id)
     {
-        var databaseIdClaim = User.Claims.FirstOrDefault(c => c.Type == "DatabaseID");
+        var databaseIdClaim =  User.Claims.FirstOrDefault(c => c.Type == "DatabaseID");
         string databaseId = "";
         if (databaseIdClaim != null)
         {

@@ -20,18 +20,17 @@ public class AccessController : ControllerBase
     }
 
     [HttpPost("register")]
-    public IActionResult RegisterUser([FromBody] UserDto user)
+    public async Task<IActionResult> RegisterUser([FromBody] UserDto user)
     {
-        user.Password = _userService.HashPassword(user.Password);
         user.Roles.Add(Role.StandardUser.ToString());
-        _userService.AddUser(user);
+         await _userService.AddUser(user);
         return Ok();
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> LoginUser()
     {
-        string authorizationHeader = HttpContext.Request.Headers["Authorization"];
+        string authorizationHeader =  HttpContext.Request.Headers["Authorization"];
         var credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authorizationHeader));
         var parts = credentials.Split(':');
         var encodedName = parts[0];
