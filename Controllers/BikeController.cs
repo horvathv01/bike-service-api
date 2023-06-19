@@ -17,7 +17,7 @@ public class BikeController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<List<BikeDto>> GetAllBikes()
     {
         return await _bikeService.GetAllBikes();
