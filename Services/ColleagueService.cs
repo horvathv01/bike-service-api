@@ -1,6 +1,7 @@
 ﻿using BikeServiceAPI.Models;
 using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BikeServiceAPI.Services;
@@ -17,6 +18,7 @@ public class ColleagueService : IColleagueService
     public async Task<int> AddColleague(ColleagueDto colleagueDto)
     {
         var colleague = new Colleague(colleagueDto);
+        colleague.Password = HashPassword(colleague.Password);
         _context.Colleagues.Add(colleague);
         return await _context.SaveChangesAsync();
     }
@@ -54,5 +56,10 @@ public class ColleagueService : IColleagueService
     {
         var colleague = await _context.Colleagues.FirstOrDefaultAsync(colleague => colleague.Id == id);
         return colleague ?? throw new InvalidOperationException("User not found by the given id.");
+    }
+    public string HashPassword(string password)
+    {
+        var passwordHasher = new PasswordHasher<string>();
+        return passwordHasher.HashPassword("BikeServiceSalt", password);
     }
 }

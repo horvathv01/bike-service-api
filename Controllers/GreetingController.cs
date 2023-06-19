@@ -5,7 +5,6 @@ namespace BikeServiceAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
 public class GreetingController : Controller
 {
     [HttpGet]

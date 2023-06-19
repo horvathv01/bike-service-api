@@ -7,7 +7,6 @@ namespace BikeServiceAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
 public class BikeController : ControllerBase
 {
     private readonly IBikeService _bikeService;
@@ -18,6 +17,7 @@ public class BikeController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<List<BikeDto>> GetAllBikes()
     {
         return await _bikeService.GetAllBikes();

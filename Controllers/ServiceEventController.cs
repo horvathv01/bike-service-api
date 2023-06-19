@@ -1,13 +1,11 @@
 ﻿using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeServiceAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
 public class ServiceEventController : Controller
 {
     private readonly IServiceEventService _serviceEventService;
