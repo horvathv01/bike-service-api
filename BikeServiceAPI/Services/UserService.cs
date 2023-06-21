@@ -11,10 +11,12 @@ namespace BikeServiceAPI.Services;
 public class UserService : IUserService
 {
     private readonly BikeServiceContext _context;
+    private readonly IAccessUtilities _accessUtilities;
 
-    public UserService(BikeServiceContext context)
+    public UserService(BikeServiceContext context, IAccessUtilities accessUtilities)
     {
         _context = context;
+        _accessUtilities = accessUtilities;
     }
 
     public async Task<List<UserDto>> GetAllUsers()
@@ -43,7 +45,7 @@ public class UserService : IUserService
     public async Task<int> AddUser(UserDto userDto)
     {
         var user = new User(userDto);
-        user.Password = HashPassword(user.Password);
+        user.Password = _accessUtilities.HashPassword(user.Password);
         _context.Users.Add(user);
         return await _context.SaveChangesAsync();
     }
@@ -56,29 +58,6 @@ public class UserService : IUserService
 
         _context.Entry(user).CurrentValues.SetValues(updateUser);
         return await _context.SaveChangesAsync();
-        
-        //
-        // user.Name = userDto.Name;
-        // user.Email = userDto.Email;
-        // user.Password = userDto.Password;
-        // user.Phone = userDto.Phone;
-        // user.Introduction = userDto.Introduction;
-        // user.Premium = userDto.Premium;
-        //
-        // user.Bikes.Clear();
-        // user.Bikes.AddRange(userDto.Bikes.Select(bikeDto => new Bike(bikeDto)));
-        //
-        // user.Tours.Clear();
-        // user.Tours.AddRange(userDto.Tours.Select(tourDto => new Tour(tourDto)));
-        //
-        // user.TransactionHistory.Clear();
-        // user.TransactionHistory.AddRange(userDto.TransactionHistory.Select(transactionDto => new Transaction(transactionDto)));
-        //
-        // user.Roles.Clear();
-        // user.Roles.AddRange(userDto.Roles.Select(roleName => Enum.Parse<Role>(roleName)));
-        //
-        // _context.Users.Update(user);
-        // return await _context.SaveChangesAsync();
     }
 
     public async Task<int> DeleteUser(long id)
@@ -97,25 +76,5 @@ public class UserService : IUserService
             .FirstOrDefaultAsync(user => user.Id == id);
 
         return user ?? throw new InvalidOperationException("User not exist.");
-    }
-
-    public string HashPassword(string password)
-    {
-        var passwordHasher = new PasswordHasher<string>();
-        return passwordHasher.HashPassword("BikeServiceSalt", password);
-    }
-
-    public async Task<bool> AuthenticateUser(string userName, string password)
-    {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Name == userName);
-
-        if (user == null)
-        {
-            return false;
-        }
-
-        var passwordHasher = new PasswordHasher<string>();
-        var result = passwordHasher.VerifyHashedPassword("BikeServiceSalt", user.Password, password);
-        return result == PasswordVerificationResult.Success;
     }
 }
