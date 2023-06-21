@@ -30,7 +30,7 @@ public class ServiceEventService : IServiceEventService
     public async Task<int> UpdateServiceEvent(ServiceEventDto serviceEventDto)
     {
         var serviceEvent = await GetServiceEventEntityById(serviceEventDto.Id);
-        var updateServiceEvent = new ServiceEventDto(serviceEvent);
+        var updateServiceEvent = new ServiceEvent(serviceEventDto);
         _context.Entry(serviceEvent).CurrentValues.SetValues(updateServiceEvent);
         return await _context.SaveChangesAsync();
     }

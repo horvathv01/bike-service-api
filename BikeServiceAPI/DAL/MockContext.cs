@@ -16,13 +16,8 @@ public class MockContext : BikeServiceContext
     {
         modelBuilder.Entity<Person>()
             .Ignore(u => u.Roles);
-            
-        modelBuilder.Entity<User>()
-            .Ignore(u => u.TransactionHistory)
-            .Ignore(u => u.Tours);
-            //.Property(u => u.Roles)
-            //.HasColumnName("Roles");
-            modelBuilder.Entity<Tour>()
+        
+        modelBuilder.Entity<Tour>()
                 .Ignore(t => t.Participants);
             modelBuilder.Entity<Transaction>()
                 .Ignore(t => t.User);

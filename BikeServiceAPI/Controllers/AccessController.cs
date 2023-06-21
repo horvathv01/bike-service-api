@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using System.Text;
+using BikeServiceAPI.Auth;
 using BikeServiceAPI.Enums;
 using BikeServiceAPI.Models.DTOs;
 using BikeServiceAPI.Services;
@@ -13,6 +14,7 @@ namespace BikeServiceAPI.Controllers;
 public class AccessController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly IAccessUtilities _accessUtilities;
 
     public AccessController(IUserService userService)
     {
@@ -36,7 +38,7 @@ public class AccessController : ControllerBase
         var encodedName = parts[0];
         var encodedPassword = parts[1];
         var user = await _userService.GetUserByName(encodedName);
-        var authenticated = await _userService.AuthenticateUser(encodedName, encodedPassword);
+        var authenticated = await _accessUtilities.AuthenticateUser(user, encodedPassword);
         if (authenticated)
         {
             var claims = new List<Claim>

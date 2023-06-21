@@ -12,6 +12,4 @@ public interface IUserService
     Task<int> UpdateUser(UserDto userDto);
     Task<int> DeleteUser(long id);
     Task<User> GetUserByName(string userName);
-    string HashPassword(string password);
-    Task<bool> AuthenticateUser(string userName, string password);
 }

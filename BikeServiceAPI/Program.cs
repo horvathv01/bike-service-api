@@ -90,6 +90,7 @@ builder.Services.AddTransient<IBikeService, BikeService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IServiceEventService, ServiceEventService>();
 builder.Services.AddTransient<IColleagueService, ColleagueService>();
+builder.Services.AddSingleton<IAccessUtilities, AccessUtilities>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -32,8 +32,9 @@ public class UserDto
 
         Premium = user.Premium;
         Bikes = user.Bikes.Select(bike => new BikeDto(bike)).ToList();
-        Tours = user.Tours.Select(tour => new TourDto(tour)).ToList();
-        TransactionHistory = user.TransactionHistory.Select(transaction => new TransactionDto(transaction)).ToList();
+        Tours = user.Tours.FirstOrDefault() != null ? user.Tours.Select(tour => new TourDto(tour)).ToList() : new List<TourDto>();
+        TransactionHistory = user.TransactionHistory.FirstOrDefault() != null ? user.TransactionHistory.Select(transaction => 
+            new TransactionDto(transaction)).ToList() : new List<TransactionDto>();
         Roles = user.Roles.Select(role => role.ToString()).ToList();
     }
 }

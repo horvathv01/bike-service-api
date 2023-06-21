@@ -1,3 +1,4 @@
+using BikeServiceAPI.Auth;
 using BikeServiceAPI.DAL;
 using BikeServiceAPI.Enums;
 using BikeServiceAPI.Models;
@@ -53,11 +54,12 @@ public class BikeServiceClassTest
     [Test]
     public async Task GetAllBikesTest()
     {
+        IAccessUtilities accessUtilities = new AccessUtilities();
         List<BikeDto> allBikes;
-        using (var context = new MockContext(_options))
+        await using (var context = new MockContext(_options))
         {
             BikeService bikeService = new BikeService(context);
-            UserService userService = new UserService(context);
+            UserService userService = new UserService(context, accessUtilities);
             await FillInMemoryDatabaseWithData(bikeService, userService);
             allBikes = await bikeService.GetAllBikes();
         }
@@ -68,11 +70,12 @@ public class BikeServiceClassTest
     [Test]
     public async Task GetBikeByIdTest()
     {
+        IAccessUtilities accessUtilities = new AccessUtilities();
         BikeDto bike;
-        using (var context = new MockContext(_options))
+        await using (var context = new MockContext(_options))
         {
             BikeService bikeService = new BikeService(context);
-            UserService userService = new UserService(context);
+            UserService userService = new UserService(context, accessUtilities);
             await FillInMemoryDatabaseWithData(bikeService, userService);
             var allBikes = await bikeService.GetAllBikes();
             var id = allBikes.FirstOrDefault().Id;
@@ -85,12 +88,13 @@ public class BikeServiceClassTest
     [Test]
     public async Task DeleteBikeTest()
     {
+        IAccessUtilities accessUtilities = new AccessUtilities();
         BikeDto bike;
         List<BikeDto> bikes;
-        using (var context = new MockContext(_options))
+        await using (var context = new MockContext(_options))
         {
             BikeService bikeService = new BikeService(context);
-            UserService userService = new UserService(context);
+            UserService userService = new UserService(context, accessUtilities);
             await FillInMemoryDatabaseWithData(bikeService, userService);
             var allBikes = await bikeService.GetAllBikes();
             bike = allBikes.FirstOrDefault();
@@ -105,12 +109,13 @@ public class BikeServiceClassTest
     [Test]
     public async Task UpdateBikeTest()
     {
+        IAccessUtilities accessUtilities = new AccessUtilities();
         BikeDto bike;
         string manufacturer = "Csirke";
-        using (var context = new MockContext(_options))
+        await using (var context = new MockContext(_options))
         {
             BikeService bikeService = new BikeService(context);
-            UserService userService = new UserService(context);
+            UserService userService = new UserService(context, accessUtilities);
             await FillInMemoryDatabaseWithData(bikeService, userService);
             var allBikes = await bikeService.GetAllBikes();
             var bike1 = allBikes.FirstOrDefault();
@@ -125,6 +130,7 @@ public class BikeServiceClassTest
     [Test]
     public async Task AddBikeTest()
     {
+        IAccessUtilities accessUtilities = new AccessUtilities();
         Random random = new Random();
         string manufacturer = "Csirke";
         List<BikeDto> bikes;
@@ -140,10 +146,10 @@ public class BikeServiceClassTest
         bike.Insured = random.Next(0, 10) % 2 == 0;
         
         var bikeDto = new BikeDto(bike);
-        using (var context = new MockContext(_options))
+        await using (var context = new MockContext(_options))
         {
             BikeService bikeService = new BikeService(context);
-            UserService userService = new UserService(context);
+            UserService userService = new UserService(context, accessUtilities);
             await FillInMemoryDatabaseWithData(bikeService, userService);
             await bikeService.AddBike(bikeDto);
             bikes = await bikeService.GetAllBikes();
