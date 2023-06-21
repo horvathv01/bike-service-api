@@ -83,11 +83,6 @@ public class ServiceEventServiceTest
             ColleagueService colleagueService = new ColleagueService(context);
             await FillInMemoryDatabaseWithData(serviceEventService, bikeService, userService, colleagueService);
             allServiceEvents = await serviceEventService.GetAllServiceEvent();
-            //serviceEventService.AddServiceEvent()
-            //serviceEventService.DeleteServiceEvent()
-            //serviceEventService.UpdateServiceEvent()
-            //serviceEventService.GetServiceEventById()
-            //serviceEventService.GetAllServiceEvent()
         }
         
         Assert.That(allServiceEvents.Count, !Is.Null);
