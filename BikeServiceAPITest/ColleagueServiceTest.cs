@@ -46,11 +46,6 @@ public class ColleagueServiceTest
             ColleagueService colleagueService = new ColleagueService(context);
             await FillInMemoryDatabaseWithData(colleagueService);
             allColleagues = await colleagueService.GetAllColleague();
-            //colleagueService.AddColleague()
-            //colleagueService.DeleteColleague()
-            //colleagueService.UpdateColleague()
-            //colleagueService.GetColleagueById()
-            //colleagueService.GetAllColleague()
         }
         
         Assert.That(allColleagues.Count, !Is.Null);
