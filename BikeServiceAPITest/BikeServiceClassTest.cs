@@ -63,14 +63,103 @@ public class BikeServiceClassTest
             UserService userService = new UserService(context);
             await FillInMemoryDatabaseWithData(bikeService, userService);
             allBikes = await bikeService.GetAllBikes();
+
+            // bikeService.AddBike();
+            // bikeService.GetAllBikes();
+            // bikeService.DeleteBike();
+            // bikeService.UpdateBike();
+            // bikeService.GetBikeById();
         }
         
         Assert.That(allBikes.Count, !Is.Null);
     }
 
     [Test]
-    public async Task FindBikeById()
+    public async Task GetBikeByIdTest()
     {
+        BikeDto bike;
+        using (var context = new MockContext(_options))
+        {
+            BikeService bikeService = new BikeService(context);
+            UserService userService = new UserService(context);
+            await FillInMemoryDatabaseWithData(bikeService, userService);
+            var allBikes = await bikeService.GetAllBikes();
+            var id = allBikes.FirstOrDefault().Id;
+            bike = await bikeService.GetBikeById(id);
+        }
         
+        Assert.That(bike, !Is.Null);
+    }
+
+    [Test]
+    public async Task DeleteBikeTest()
+    {
+        BikeDto bike;
+        List<BikeDto> bikes;
+        using (var context = new MockContext(_options))
+        {
+            BikeService bikeService = new BikeService(context);
+            UserService userService = new UserService(context);
+            await FillInMemoryDatabaseWithData(bikeService, userService);
+            var allBikes = await bikeService.GetAllBikes();
+            bike = allBikes.FirstOrDefault();
+            Console.WriteLine($"bike found: {bike.Id}");
+            await bikeService.DeleteBike(bike.Id);
+            bikes = await bikeService.GetAllBikes();
+        }
+        
+        Assert.That(!bikes.Contains(bike));
+    }
+
+    [Test]
+    public async Task UpdateBikeTest()
+    {
+        BikeDto bike;
+        string manufacturer = "Csirke";
+        using (var context = new MockContext(_options))
+        {
+            BikeService bikeService = new BikeService(context);
+            UserService userService = new UserService(context);
+            await FillInMemoryDatabaseWithData(bikeService, userService);
+            var allBikes = await bikeService.GetAllBikes();
+            var bike1 = allBikes.FirstOrDefault();
+            bike1.Manufacturer = manufacturer;
+            await bikeService.UpdateBike(bike1);
+            bike = await bikeService.GetBikeById(bike1.Id);
+        }
+        
+        Assert.That(bike.Manufacturer, Is.EqualTo(manufacturer));
+    }
+
+    [Test]
+    public async Task AddBikeTest()
+    {
+        Random random = new Random();
+        string manufacturer = "Csirke";
+        List<BikeDto> bikes;
+        var bike = new Bike();
+        bike.VIN = $"VIN-{random.Next(0, 8)}";
+        bike.Manufacturer = manufacturer;
+        bike.Model = "Model";
+        bike.BikeType = (BikeType)random.Next(0, Enum.GetNames(typeof(BikeType)).Length - 1);
+        bike.WheelSize = random.Next(12, 28);
+        bike.FrameSize = (BikeFrameSize)random.Next(0, Enum.GetNames(typeof(BikeFrameSize)).Length - 1);
+        bike.State = (BikeState)random.Next(0, Enum.GetNames(typeof(BikeState)).Length - 1);
+        bike.UserId = random.Next(0, 9);
+        bike.Insured = random.Next(0, 10) % 2 == 0;
+        
+        var bikeDto = new BikeDto(bike);
+        using (var context = new MockContext(_options))
+        {
+            BikeService bikeService = new BikeService(context);
+            UserService userService = new UserService(context);
+            await FillInMemoryDatabaseWithData(bikeService, userService);
+            await bikeService.AddBike(bikeDto);
+            bikes = await bikeService.GetAllBikes();
+        }
+
+        var selection = bikes.Where(b => b.Manufacturer == manufacturer);
+            
+        Assert.That(selection, !Is.Null);
     }
 }
