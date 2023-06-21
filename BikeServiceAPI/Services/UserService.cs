@@ -56,29 +56,6 @@ public class UserService : IUserService
 
         _context.Entry(user).CurrentValues.SetValues(updateUser);
         return await _context.SaveChangesAsync();
-        
-        //
-        // user.Name = userDto.Name;
-        // user.Email = userDto.Email;
-        // user.Password = userDto.Password;
-        // user.Phone = userDto.Phone;
-        // user.Introduction = userDto.Introduction;
-        // user.Premium = userDto.Premium;
-        //
-        // user.Bikes.Clear();
-        // user.Bikes.AddRange(userDto.Bikes.Select(bikeDto => new Bike(bikeDto)));
-        //
-        // user.Tours.Clear();
-        // user.Tours.AddRange(userDto.Tours.Select(tourDto => new Tour(tourDto)));
-        //
-        // user.TransactionHistory.Clear();
-        // user.TransactionHistory.AddRange(userDto.TransactionHistory.Select(transactionDto => new Transaction(transactionDto)));
-        //
-        // user.Roles.Clear();
-        // user.Roles.AddRange(userDto.Roles.Select(roleName => Enum.Parse<Role>(roleName)));
-        //
-        // _context.Users.Update(user);
-        // return await _context.SaveChangesAsync();
     }
 
     public async Task<int> DeleteUser(long id)
