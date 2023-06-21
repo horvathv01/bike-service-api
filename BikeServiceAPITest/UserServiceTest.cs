@@ -47,11 +47,6 @@ public class UserServiceTest
             UserService userService = new UserService(context, accessUtilities);
             await FillInMemoryDatabaseWithData(userService);
             allUsers = await userService.GetAllUsers();
-            //userService.AddUser()
-            //userService.DeleteColleague()
-            //userService.UpdateColleague()
-            //userService.GetUserById()
-            //userService.GetAllUsers()
         }
         
         Assert.That(allUsers.Count, !Is.Null);
