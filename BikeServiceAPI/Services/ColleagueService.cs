@@ -31,7 +31,8 @@ public class ColleagueService : IColleagueService
 
     public async Task<int> UpdateColleague(ColleagueDto colleagueDto)
     {
-        var colleague = await GetColleagueEntityById(colleagueDto.Id);
+        var colleague = await GetColleagueEntityById(colleagueDto.Id) ??
+                        throw new InvalidOperationException("colleague with id not exist");
         var updateColleague = new Colleague(colleagueDto);
         
         _context.Entry(colleague).CurrentValues.SetValues(updateColleague);
