@@ -16,6 +16,7 @@ public class Colleague : Person
 
     public Colleague(ColleagueDto dto) : base(dto.Name, dto.Email, dto.Password, dto.Phone, dto.Introduction)
     {
+        Id = dto.Id;
         SkillLevel = Enum.Parse<SkillLevel>(dto.SkillLevel);
         ServiceEvents = dto.ServiceEvents.Select(eventDto => new ServiceEvent(eventDto)).ToList();
     }

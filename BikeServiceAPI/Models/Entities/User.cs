@@ -17,6 +17,7 @@ public class User : Person
 
     public User(UserDto dto) : base(dto.Name, dto.Email, dto.Password, dto.Phone, dto.Introduction)
     {
+        Id = dto.Id;
         Premium = dto.Premium;
         Bikes = dto.Bikes.Select(bikeDto => new Bike(bikeDto)).ToList();
         Tours = dto.Tours.Select(tourDto => new Tour(tourDto)).ToList();
