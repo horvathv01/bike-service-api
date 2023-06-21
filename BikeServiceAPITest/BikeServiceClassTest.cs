@@ -27,7 +27,6 @@ public class BikeServiceClassTest
         int num = 8;
         for (int i = 0; i < num; i++)
         {
-            //bike
             Bike currentBike = new Bike();
             currentBike.VIN = $"VIN-{i}";
             currentBike.Manufacturer = "Manufacturer";
@@ -39,8 +38,6 @@ public class BikeServiceClassTest
             currentBike.UserId = i;
             currentBike.Insured = random.Next(0, 10) % 2 == 0;
             
-            //user
-            //string name, string email, string password, string phone, string? introduction = null
             string name = $"UserName-{i}";
             string email = $"{name}@bikeservice.ru";
             string password = $"user{i}";
@@ -63,12 +60,6 @@ public class BikeServiceClassTest
             UserService userService = new UserService(context);
             await FillInMemoryDatabaseWithData(bikeService, userService);
             allBikes = await bikeService.GetAllBikes();
-
-            // bikeService.AddBike();
-            // bikeService.GetAllBikes();
-            // bikeService.DeleteBike();
-            // bikeService.UpdateBike();
-            // bikeService.GetBikeById();
         }
         
         Assert.That(allBikes.Count, !Is.Null);
