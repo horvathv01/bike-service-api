@@ -26,44 +26,12 @@ builder.Services.AddCors(options =>
 string[] connectionNames = { "BikeServiceConnection", "BikeService@Vili" };
 string connectionString = null;
 
-foreach (string connectionName in connectionNames)
-{
-    string currentConnectionString = builder.Configuration.GetConnectionString(connectionName);
+builder.Services.AddDbContext<BikeServiceContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString(connectionNames[1])));
 
-    if (currentConnectionString != null)
-    {
-        if (connectionName == "BikeServiceConnection")
-        {
-            try
-            {
-                builder.Services.AddDbContext<BikeServiceContext>(options =>
-                    options.UseSqlServer(currentConnectionString));
-
-                connectionString = currentConnectionString;
-                break;
-            }
-            catch (SqlException)
-            {
-                Console.WriteLine($"Failed to connect to SQL Server");
-            }
-        }
-        else if (connectionName == "BikeService@Vili")
-        {
-            try
-            {
-                builder.Services.AddDbContext<BikeServiceContext>(options =>
-                    options.UseNpgsql(currentConnectionString));
-
-                connectionString = currentConnectionString;
-                break;
-            }
-            catch (NpgsqlException)
-            {
-                Console.WriteLine($"Failed to connect to PostgreSQL");
-            }
-        }
-    }
-}
+builder.Services.AddDbContext<BikeServiceContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString(connectionNames[0]))
+    );
 
 if (connectionString == null)
 {
