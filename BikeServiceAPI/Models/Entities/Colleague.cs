@@ -19,5 +19,6 @@ public class Colleague : Person
         Id = dto.Id;
         SkillLevel = Enum.Parse<SkillLevel>(dto.SkillLevel);
         ServiceEvents = dto.ServiceEvents.Select(eventDto => new ServiceEvent(eventDto)).ToList();
+        Roles = dto.Roles.Select(r => Enum.Parse<Role>(r)).ToList();
     }
 }
