@@ -16,9 +16,10 @@ public class AccessController : ControllerBase
     private readonly IUserService _userService;
     private readonly IAccessUtilities _accessUtilities;
 
-    public AccessController(IUserService userService)
+    public AccessController(IUserService userService, IAccessUtilities accessUtilities)
     {
         _userService = userService;
+        _accessUtilities = accessUtilities;
     }
 
     [HttpPost("register")]
@@ -63,7 +64,8 @@ public class AccessController : ControllerBase
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal,
                 authProperties);
-            return Ok("Login Success");
+            user.Password = "";
+            return Ok(new UserDto(user));
         }
 
         return Unauthorized("Login Failed");
