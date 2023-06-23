@@ -8,7 +8,7 @@ RUN dotnet build -c Release --no-restore
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS runtime
 WORKDIR /app
-COPY --from=build /app .
+COPY --from=build /app/bin/Release/net7.0 .
 
 ENV ASPNETCORE_ENVIRONMENT=Production
 
