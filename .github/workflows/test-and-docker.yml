@@ -90,8 +90,12 @@ jobs:
 
       - name: Push API docker image
         if: ${{ github.ref == 'refs/heads/main' }}
-        run: docker push krisztanzero/bike-service-project:bike-service-api
+        run: |
+          docker tag bike-service-api:latest krisztanzero/bike-service-project:bike-service-api
+          docker push krisztanzero/bike-service-project:bike-service-api
 
       - name: Push DB docker image
         if: ${{ github.ref == 'refs/heads/main' }}
-        run: docker push krisztanzero/bike-service-project:bike-service-db
+        run: |
+          docker tag bike-service-db:latest krisztanzero/bike-service-project:bike-service-db
+          docker push krisztanzero/bike-service-project:bike-service-db
